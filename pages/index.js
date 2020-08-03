@@ -10,14 +10,13 @@ const Main = dynamic(() => import('../components/Main'), {
    loading: () => <p>Loading Main Content...</p>,
 });
 
-export default function Home() {
+export default function Home({ response }) {
    const router = useRouter();
-   const { data, error, isValidating } = useSWR('/api/hello', fetcher, {
+   const { data, error } = useSWR('/api/hello', fetcher, {
       shouldRetryOnError: false,
       errorRetryCount: 3,
       revalidateOnFocus: false,
    });
-   console.log('isValidating : ', isValidating);
    //  console.log('data : ', data);
 
    useEffect(() => {
@@ -36,6 +35,13 @@ export default function Home() {
 
          <Main data={data} />
 
+         <h4>Test Fetch Api With getStaticProps</h4>
+         <ul>
+            {response.map((item) => (
+               <li key={item.id}>{item.name}</li>
+            ))}
+         </ul>
+
          <footer className={styles.footer}>
             <a href='/#' target='_blank' rel='noopener noreferrer'>
                Powered by Min
@@ -43,4 +49,27 @@ export default function Home() {
          </footer>
       </div>
    );
+}
+
+// use this if you want to get query string
+// export async function getServerSideProps({ query }) {
+//    console.log('query : ', query);
+//    const res = await fetch('https://jsonplaceholder.typicode.com/users');
+//    const response = await res.json();
+//    return {
+//       props: {
+//          response,
+//       },
+//    };
+// }
+
+export async function getStaticProps({ query }) {
+   console.log('query : ', query);
+   const res = await fetch('https://jsonplaceholder.typicode.com/users');
+   const response = await res.json();
+   return {
+      props: {
+         response,
+      },
+   };
 }

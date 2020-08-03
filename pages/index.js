@@ -31,6 +31,10 @@ export default function Home({ response }) {
          <Head>
             <title>Welcome To Min Land</title>
             <link rel='icon' href='/favicon.ico' />
+            <meta
+               name='google-site-verification'
+               content='Yki5zGwqQ0krBJ_YuMPzk0XMRUgvFwlkdO2ceqNY1yA'
+            />
          </Head>
 
          <Main data={data} />

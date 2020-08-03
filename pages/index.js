@@ -24,7 +24,18 @@ export default function Home({ response }) {
    }, []);
 
    if (error) return 'Error to Fetch Data';
-   if (!data) return <React.Fragment>Loading...</React.Fragment>;
+   if (!data)
+      return (
+         <React.Fragment>
+            <Head>
+               <meta
+                  name='google-site-verification'
+                  content='Yki5zGwqQ0krBJ_YuMPzk0XMRUgvFwlkdO2ceqNY1yA'
+               />
+            </Head>
+            Loading...
+         </React.Fragment>
+      );
 
    return (
       <div className={styles.container}>
